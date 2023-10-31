@@ -1,9 +1,9 @@
 let modInfo = {
-	name: "The ??? Tree",
-	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
-	modFiles: ["layers.js", "tree.js"],
+	name: "Celestia",
+	id: "celestia",
+	author: "Aizure",
+	pointsName: "prima",
+	modFiles: ["layers.js","layerfunction.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -34,7 +34,8 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	let can = hasUpgrade('q', 11)
+	return can
 }
 
 // Calculate points/sec!

@@ -3,6 +3,7 @@ var layers = {}
 const decimalZero = new Decimal(0)
 const decimalOne = new Decimal(1)
 const decimalNaN = new Decimal(NaN)
+const decimalInf = new Decimal(1/0)
 
 const defaultGlow = "#ff0000"
 

@@ -3,7 +3,7 @@ let modInfo = {
 	id: "celestia",
 	author: "Aizure",
 	pointsName: "prima",
-	modFiles: ["layers/Particle/Quantum.js", "tree.js", "layers/LayerSupport.js"],
+	modFiles: ["layers/Particle/Quantum.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -44,7 +44,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
-	if(hasUpgrade('q', 12)) gain = gain.mul(upgradeEffect('q', 12))
+	if(hasUpgrade('q', 12)) gain = gain.mul(2)
 	return gain
 }
 

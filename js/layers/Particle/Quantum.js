@@ -10,6 +10,9 @@ addLayer("q",{
     startData(){ return{
         unlocked: true,
         points : decimalZero,
+
+        opac:0,
+        opon:false,
     }},
 
     //레이어 자원 정보
@@ -30,6 +33,14 @@ addLayer("q",{
         return exp
     },
 
+    // LINE-INFO: Update
+    update(delta){
+        if(player.q.opon){
+            player.q.opac = player.q.opac+delta
+            if(player.q.opac >= 2) player.q.opon = false
+        }
+    },
+
     // LINE-INFO: 업그레이드
     //#region 업그레이드
     upgrades: {
@@ -48,7 +59,9 @@ addLayer("q",{
                 return format(getPointGen())+" Prima/s"
             },
 
-            //onPurchase(){},
+            onPurchase(){
+                player.q.opon = true
+            },
 
             //style:{},
             //tooltip:{},
@@ -57,36 +70,16 @@ addLayer("q",{
         },
 
         12:{
-            title(){
-                return UpgradeLockTitle('q', 11, "Quantum Resonance")
-            },
-            description(){
-                return UpgradeLockDesc('q', 11, "Quantum Energy boost Prima gain<br><br>Currently : "+format(upgradeEffect('q', 12))+"x")
-            },
+            title:"Prima fission",
+            description:"Double Prima gain",
 
-            cost(){return LockedCost('q', 11, 2)},
+            cost:new Decimal(2),
 
-            effect(){
-                return player.q.points.add(1).log(12).add(1)
-            },
-            
-            style(){
-                return UpgradeLockStyle('q', 11)
-            },
-        },
-
-        13:{
-            title(){ return UpgradeLockTitle('q', 12, "Prima Resonance") },
-            description(){ return UpgradeLockDesc('q', 12, "Prima boost Prima gain<br><br>Currently : "+format(upgradeEffect('q', 13))+"x") },
-
-            cost(){return LockedCost('q', 11, 5)},
-
-            effect(){
-                return player.points.add(1).log(50).add(1)
-            },
-
-            style(){ return UpgradeLockStyle('q', 12) },
-        },
+            OpenUpg(){ return hasUpgrade('q', 11) },
+            UReq:"Get <b>In to the Realm</b> to unlock",
+            unlockUpg(){ return hasUpgrade('q', 11) },
+            unlocked:false,
+        }
     },
     //#endregion
     // LINE-INFO: 마일스톤
@@ -115,6 +108,7 @@ addLayer("q",{
                 content: [
                     "blank",
                     ["column", [
+                        ["row", [["upgrade", 14]]],
                         ["row", [["upgrade", 13]]],
                         ["row", [["upgrade", 12]]],
                         ["row", [["upgrade", 11]]],
